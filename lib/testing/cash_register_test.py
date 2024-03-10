@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from cash_register import CashRegister
+from ..cash_register import CashRegister
 
 import io
 import sys
@@ -12,8 +12,8 @@ class TestCashRegister:
     cash_register_with_discount = CashRegister(20)
 
     def reset_register_totals(self):
-      self.cash_register.total = 0
-      self.cash_register_with_discount.total = 0
+        self.cash_register.total = 0
+        self.cash_register_with_discount.total = 0
 
     def test_discount_attribute(self):
         '''takes one optional argument, a discount, on initialization.'''
@@ -34,18 +34,16 @@ class TestCashRegister:
         '''accepts a title and a price and increases the total.'''
         self.cash_register.add_item("eggs", 0.98)
         assert(self.cash_register.total == 0.98)
-        # self.reset_total(self.cash_register)
         self.reset_register_totals()
 
     def test_add_item_optional_quantity(self):
         '''also accepts an optional quantity.'''
         self.cash_register.add_item("book", 5.00, 3)
         assert(self.cash_register.total == 15.00)
-        # self.cash_register.total = 0
         self.reset_register_totals()
 
     def test_add_item_with_multiple_items(self):
-        '''doesn"t forget about the previous total'''
+        '''doesn't forget about the previous total'''
         self.cash_register.add_item("Lucky Charms", 4.5)
         assert(self.cash_register.total == 4.5)
         self.cash_register.add_item("Ritz Crackers", 5.0)
@@ -59,7 +57,6 @@ class TestCashRegister:
         self.cash_register_with_discount.add_item("macbook air", 1000)
         self.cash_register_with_discount.apply_discount()   
         assert(self.cash_register_with_discount.total == 800)
-        # self.cash_register_with_discount.total = 0
         self.reset_register_totals()
 
     def test_apply_discount_success_message(self):
@@ -103,17 +100,16 @@ class TestCashRegister:
         assert(new_register.items == ["eggs", "eggs", "tomato", "tomato", "tomato"])
 
     def test_void_last_transaction(self):
-      '''subtracts the last item from the total'''
-      self.cash_register.add_item("apple", 0.99)
-      self.cash_register.add_item("tomato", 1.76)
-      self.cash_register.void_last_transaction()
-      assert(self.cash_register.total == 0.99)
-      self.reset_register_totals()
+        '''subtracts the last item from the total'''
+        self.cash_register.add_item("apple", 0.99)
+        self.cash_register.add_item("tomato", 1.76)
+        self.cash_register.void_last_transaction()
+        assert(self.cash_register.total == 0.99)
+        self.reset_register_totals()
 
     def test_void_last_transaction_with_multiples(self):
-      '''returns the total to 0.0 if all items have been removed'''
-      self.cash_register.add_item("tomato", 1.76, 2)
-      self.cash_register.void_last_transaction() 
-      assert(self.cash_register.total == 0.0)
-      self.reset_register_totals()
-      
+        '''returns the total to 0.0 if all items have been removed'''
+        self.cash_register.add_item("tomato", 1.76, 2)
+        self.cash_register.void_last_transaction() 
+        assert(self.cash_register.total == 0.0)
+        self.reset_register_totals()
